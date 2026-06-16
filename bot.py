@@ -1,12 +1,14 @@
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher
+from aiogram.fsm.storage.memory import MemoryStorage
 from config import TOKEN
 from handlers import start, help, weather, admin, fallback
 
 logging.basicConfig(level=logging.INFO)
 
 bot = Bot(token=TOKEN)
+storage = MemoryStorage() 
 dp = Dispatcher()
 
 dp.include_router(start.router)

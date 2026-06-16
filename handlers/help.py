@@ -1,7 +1,8 @@
 import logging
-from aiogram import Router
+from aiogram import Router, F
 from aiogram.filters import Command
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
+from keyboards.inline import main_menu
 
 logger = logging.getLogger(__name__)
 
@@ -23,4 +24,13 @@ async def cmd_help(message: Message):
         "погода Лондон\n"
         "погода Париж",
         parse_mode="Markdown"
+    )
+
+
+@router.callback_query(F.data == "help")
+async def callback_help(callback: CallbackQuery):
+    await callback.answer()
+    await callback.message.edit_text(
+        "📋 Команды:\n/start — меню\n/set_city — установить город\n/my_city — показать город\n/weather — погода",
+        reply_markup=main_menu
     )
