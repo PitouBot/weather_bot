@@ -101,10 +101,6 @@ async def callback_weather(callback: CallbackQuery):
 async def handle_city_input(message: Message, state: FSMContext):
     city = message.text.strip()
 
-    if not city:
-        await message.answer("❌ Город не может быть пустым. Попробуй ещё раз.")
-        return
-
     await message.bot.send_chat_action(message.chat.id, "typing")
     success, result = await WeatherAPI.get_weather(city)
 
@@ -113,11 +109,13 @@ async def handle_city_input(message: Message, state: FSMContext):
         return
 
     UserCity.set(message.from_user.id, city)
-    await state.clear()  # ← сбрасываем состояние
-
+    await state.clear()  # ← сбрасываем состояние 
+                    
     await message.answer(
         f"✅ Город '{city}' сохранён!\n\n{result}",
         reply_markup=main_menu
     )
 
 
+
+    

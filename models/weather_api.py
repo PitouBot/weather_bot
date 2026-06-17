@@ -34,7 +34,7 @@ class WeatherAPI:
             except Exception as e:
                 logger.error(f"Unexpected error: {e}")
                 return False, "❌ Непредвиденная ошибка"
-
+    
     @staticmethod
     def _format_weather(data: dict) -> str:
         name = data['name']
@@ -51,3 +51,6 @@ class WeatherAPI:
             f"💨 Ветер: {wind} м/с\n"
             f"📖 {description}"
         )
+
+   
+    
